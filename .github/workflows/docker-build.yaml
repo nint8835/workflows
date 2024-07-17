@@ -1,0 +1,48 @@
+on:
+    workflow_call:
+        inputs:
+            image_name:
+                description: Name of the final Docker image, not including the registry or tag
+                type: string
+                required: true
+            tag_rules:
+                description: Rules to be used to determine the tag for the Docker image. See the readme for https://github.com/docker/metadata-action for more information.
+                type: string
+                default: |
+                  type=raw,value=latest,enable={{is_default_branch}}
+
+jobs:
+    docker-build:
+        name: Build Docker image
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            
+            # TODO: Setup qemu / buildx?
+
+            - name: Login to target registry
+              uses: docker/login-action@v3
+              with:
+                  # TODO: Support other registries
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN}}
+            
+            - name: Generate image metadata
+              uses: docker/metadata-action@v5
+              id: metadata
+              with:
+                  images: ghcr.io/${{ inputs.image_name }}
+                  tags: ${{ inputs.tag_rules }}
+            
+            - name: Build and push Docker image
+              uses: docker/build-push-action@v6
+              with:
+                  context: .
+                  push: true
+                  tags: ${{ steps.metadata.outputs.tags }}
+                  labels: ${{ steps.metadata.outputs.labels }}
+            
+            # TODO: Innclude artifact attestation?
