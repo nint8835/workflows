@@ -53,7 +53,7 @@ jobs:
                   cache-to: type=gha,mode=max
             
             - name: Generate artifact attestation
-              uses: actions/attest-build-provenance@d4c1ca22b806a1080396b9206bd31e4df89af30d # v1
+              uses: actions/attest-build-provenance@5e9cb68e95676991667494a6a4e59b8a2f13e1d0 # v1
               with:
                   subject-name: ghcr.io/${{ inputs.image_name }}
                   subject-digest: ${{ steps.push.outputs.digest }}
