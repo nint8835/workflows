@@ -27,3 +27,26 @@ jobs:
     with:
       image_name: YOUR_USERNAME/YOUR_REPO
 ```
+
+## `golangci-lint.yaml`
+
+Handles running of golangci-lint, automatically checking out code and setting up Go.
+
+### Usage
+
+```yaml
+name: golangci-lint
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+  checks: write
+
+jobs:
+  golangci-lint:
+    uses: nint8835/workflows/.github/workflows/golangci-lint.yaml@main
+```
