@@ -10,6 +10,10 @@ on:
                 type: string
                 default: |
                   type=raw,value=latest,enable={{is_default_branch}}
+            dockerfile_path:
+                description: Path to the Dockerfile to build.
+                type: string
+                default: Dockerfile
 
 jobs:
     docker-build:
@@ -46,6 +50,7 @@ jobs:
               id: push
               with:
                   context: .
+                  file: "${{ inputs.dockerfile_path }}"
                   push: true
                   tags: ${{ steps.metadata.outputs.tags }}
                   labels: ${{ steps.metadata.outputs.labels }}
