@@ -1,6 +1,8 @@
 name: Lint workflows
 on:
     push:
+        branches:
+            - main
     pull_request:
 
 jobs:
