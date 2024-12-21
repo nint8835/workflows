@@ -31,4 +31,6 @@ jobs:
                   password: ${{ secrets.GITHUB_TOKEN }}
             
             - name: Build & push with Earthly
-              run: earthly --ci --push ${{ inputs.target }}
+              run: earthly --ci --push $TARGET
+              env:
+                TARGET: ${{ inputs.target }}
