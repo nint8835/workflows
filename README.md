@@ -60,6 +60,11 @@ Builds and pushes a Docker image via [Earthly](https://earthly.dev/).
 ```yaml
 name: Build Docker image
 
+on:
+  push:
+    branches:
+      - main
+
 permissions:
   contents: read
   packages: write
