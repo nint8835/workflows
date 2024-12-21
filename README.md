@@ -50,3 +50,23 @@ jobs:
   golangci-lint:
     uses: nint8835/workflows/.github/workflows/golangci-lint.yaml@main
 ```
+
+## `earthly-build.yaml`
+
+Builds and pushes a Docker image via [Earthly](https://earthly.dev/).
+
+### Usage
+
+```yaml
+name: Build Docker image
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    uses: nint8835/workflows/.github/workflows/earthly-build.yaml@main
+    with:
+      target: +my-image
+```
