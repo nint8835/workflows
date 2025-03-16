@@ -10,6 +10,7 @@ on:
         type: string
         default: |
           type=raw,value=latest,enable={{is_default_branch}}
+          type=raw,value={{branch}}-{{sha}}-{{date 'YYYYMMDD-HHmmss' tz='America/St_Johns'}},enable={{is_default_branch}}
       dockerfile_path:
         description: Path to the Dockerfile to build.
         type: string
