@@ -45,9 +45,6 @@ jobs:
           bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
           ./actionlint -color
         shell: bash
-      - run: echo 'called!'
-        # ERROR: Comparing string to object is always evaluated to false
-        if: ${{ github.event == 'workflow_call' }}
 
   zizmor:
     runs-on: ubuntu-latest
