@@ -5,6 +5,7 @@ on:
       - main
   pull_request:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   actionlint:
@@ -16,6 +17,28 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           persist-credentials: false
+      - name: Create actionlint matcher
+        run: echo '${MATCHER}' > .github/actionlint-matcher.json
+        env:
+          MATCHER: |
+            {
+              "problemMatcher": [
+                {
+                  "owner": "actionlint",
+                  "pattern": [
+                    {
+                      "regexp": "^(?:\\x1b\\[\\d+m)?(.+?)(?:\\x1b\\[\\d+m)*:(?:\\x1b\\[\\d+m)*(\\d+)(?:\\x1b\\[\\d+m)*:(?:\\x1b\\[\\d+m)*(\\d+)(?:\\x1b\\[\\d+m)*: (?:\\x1b\\[\\d+m)*(.+?)(?:\\x1b\\[\\d+m)* \\[(.+?)\\]$",
+                      "file": 1,
+                      "line": 2,
+                      "column": 3,
+                      "message": 4,
+                      "code": 5
+                    }
+                  ]
+                }
+              ]
+            }
+
       - name: Check workflow files
         run: |
           echo "::add-matcher::.github/actionlint-matcher.json"
