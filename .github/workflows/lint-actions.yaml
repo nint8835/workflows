@@ -18,7 +18,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Create actionlint matcher
-        run: echo '${MATCHER}' > .github/actionlint-matcher.json
+        run: echo '$MATCHER' > .github/actionlint-matcher.json
         env:
           MATCHER: |
             {
