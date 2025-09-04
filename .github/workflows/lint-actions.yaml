@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    default:
+      deliberately-misnamed: true
     steps:
       - name: Checkout code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -38,9 +40,6 @@ jobs:
                 }
               ]
             }
-
-      - name: Check matcher contents
-        run: cat .github/actionlint-matcher.json
 
       - name: Check workflow files
         run: |
