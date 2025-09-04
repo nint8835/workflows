@@ -1,4 +1,5 @@
 # Workflows
+
 Reusable GitHub Actions workflows, to be used by other repos
 
 ## `docker-build.yaml`
@@ -74,4 +75,28 @@ jobs:
     uses: nint8835/workflows/.github/workflows/earthly-build.yaml@main
     with:
       target: +my-image
+```
+
+## `lint-actions.yaml`
+
+Lints GitHub Actions workflow files using actionlint and zizmor.
+
+### Usage
+
+```yaml
+name: Lint Actions
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  lint-actions:
+    uses: nint8835/workflows/.github/workflows/lint-actions.yaml@main
 ```
