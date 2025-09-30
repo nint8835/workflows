@@ -16,10 +16,16 @@ on:
         type: string
         default: Dockerfile
 
+permissions: {}
+
 jobs:
   docker-build:
     name: Build Docker image
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
 
     steps:
       - name: Checkout code
