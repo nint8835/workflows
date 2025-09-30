@@ -16,15 +16,16 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-  packages: write
-  attestations: write
-  id-token: write
+permissions: {}
 
 jobs:
   build:
     uses: nint8835/workflows/.github/workflows/docker-build.yaml@main
+    permissions:
+      attestations: write # Needed to create attestations
+      contents: read # Needed to clone the repository
+      id-token: write # Needed to sign attestations
+      packages: write # Needed to push to GitHub Container Registry
     with:
       image_name: YOUR_USERNAME/YOUR_REPO
 ```
@@ -42,14 +43,15 @@ on:
   push:
   pull_request:
 
-permissions:
-  contents: read
-  pull-requests: read
-  checks: write
+permissions: {}
 
 jobs:
   golangci-lint:
     uses: nint8835/workflows/.github/workflows/golangci-lint.yaml@main
+    permissions:
+      checks: write # Needed to post check run results
+      contents: read # Needed to clone the repository
+      pull-requests: read # Needed to read PR information
 ```
 
 ## `earthly-build.yaml`
@@ -66,13 +68,14 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-  packages: write
+permissions: {}
 
 jobs:
   build:
     uses: nint8835/workflows/.github/workflows/earthly-build.yaml@main
+    permissions:
+      contents: read # Needed to clone the repository
+      packages: write # Needed to push to GitHub Container Registry
     with:
       target: +my-image
 ```
@@ -96,11 +99,13 @@ on:
     paths:
       - .github/workflows/**
 
-permissions:
-  contents: read
-  security-events: write
+permissions: {}
 
 jobs:
   lint-actions:
     uses: nint8835/workflows/.github/workflows/lint-actions.yaml@main
+    permissions:
+      actions: read # Needed to read GitHub Actions information
+      contents: read # Needed to clone the repository
+      security-events: write # Needed to submit scan results to GitHub
 ```

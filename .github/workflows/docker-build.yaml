@@ -23,9 +23,10 @@ jobs:
     name: Build Docker image
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      packages: write
-      id-token: write
+      attestations: write # Needed to create attestations
+      contents: read # Needed to clone the repository
+      id-token: write # Needed to sign attestations
+      packages: write # Needed to push to GitHub Container Registry
 
     steps:
       - name: Checkout code

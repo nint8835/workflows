@@ -13,9 +13,8 @@ jobs:
     name: Build Docker image with Earthly
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      packages: write
-      id-token: write
+      contents: read # Needed to clone the repository
+      packages: write # Needed to push to GitHub Container Registry
 
     steps:
       - name: Checkout code

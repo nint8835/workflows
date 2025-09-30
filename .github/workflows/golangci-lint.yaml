@@ -8,7 +8,9 @@ jobs:
     name: golangci-lint
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      checks: write # Needed to post check run results
+      contents: read # Needed to clone the repository
+      pull-requests: read # Needed to read PR information
     steps:
       - name: Checkout code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
