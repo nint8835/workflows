@@ -36,8 +36,18 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Generate sortable image tag
+        id: image_tag
+        run: |
+          BRANCH="${{ github.ref_name }}"
+          SHORT_SHA="${{ github.sha }}"
+          SHORT_SHA="${SHORT_SHA:0:7}"
+          TIMESTAMP=$(TZ="America/St_Johns" date +"%Y%m%d-%H%M%S")
+          TAG="${BRANCH}-${SHORT_SHA}-${TIMESTAMP}"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
 
       - name: Build & push with Earthly
-        run: earthly --ci --push "$TARGET"
+        run: earthly --ci --push "$TARGET" --TAG="${{ steps.image_tag.outputs.tag }}"
         env:
           TARGET: ${{ inputs.target }}
