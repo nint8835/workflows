@@ -1,0 +1,21 @@
+rules:
+  unpinned-uses:
+    ignore:
+      # Repo uses GitHub Actions locking which is not yet supported. The below actions are locked already.
+      # https://github.com/zizmorcore/zizmor/issues/2371
+      - docker-build.yaml:39
+      - docker-build.yaml:44
+      - docker-build.yaml:47
+      - docker-build.yaml:52
+      - docker-build.yaml:60
+      - docker-build.yaml:67
+      - docker-build.yaml:80
+      - earthly-build.yaml:23
+      - earthly-build.yaml:28
+      - earthly-build.yaml:33
+      - golangci-lint.yaml:18
+      - golangci-lint.yaml:22
+      - golangci-lint.yaml:26
+      - lint-actions.yaml:24
+      - lint-actions.yaml:65
+      - lint-actions.yaml:70
