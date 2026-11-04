@@ -49,7 +49,7 @@ jobs:
           cache-binary: false
 
       - name: Login to target registry
-        uses: docker/login-action@v4.6.0
+        uses: docker/login-action@v4.7.0
         with:
           # TODO: Support other registries
           registry: ghcr.io
